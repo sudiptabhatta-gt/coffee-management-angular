@@ -1,0 +1,168 @@
+.form-box {
+    width: 440px;
+    height: 550px;
+    /* flex-shrink: 0; */
+    border-radius: 12px;
+    background: #fff;
+    /* Shadow/md */
+    box-shadow:  0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+
+.form-box img {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 32px;
+}
+
+
+.form-box h4 {
+    display: flex;
+    flex-direction: column;
+    color: #101828;
+    text-align: center;
+    margin: 24px;
+
+    /* Display sm/Semibold */
+    font-size: 30px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 0px;
+}
+
+
+.form-box h6{
+    display: flex;
+    flex-direction: column;
+    color: #475467;
+    text-align: center;
+
+    /* Text md/Regular */
+    font-size: 16px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+
+.form-input {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    align-self: stretch;
+}
+
+label {
+    color: #344054;
+
+    /* Text sm/Medium */
+    font-size: 14px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+input {
+    display: flex;
+    padding: 10px 14px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+    background: #FFF;
+
+    /* Shadow/xs */
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    align-self: stretch;
+}
+
+
+form p {
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+
+
+form p a {
+    text-decoration: none;
+    color: #3c00a0;
+}
+
+
+.btn-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+}
+
+.btn-field button {
+    display: flex;
+    padding: 10px 18px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    border-radius: 8px;
+    border: 1px solid #7F56D9;
+    background: #523838;
+
+    /* Shadow/xs */
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+
+    color: #FFF;
+
+    /* Text md/Semibold */
+    font-size: 16px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+
+.input-field input:focus {
+    outline: 0;
+}
+
+.input-field.success input {
+    border-color: #09c372;
+}
+
+.input-field.error input {
+    border-color: #ff3860;
+}
+
+.input-field .error {
+    color: #ff3860;
+    font-size: 12px;
+    height: 13px;
+}
+
+
+
+

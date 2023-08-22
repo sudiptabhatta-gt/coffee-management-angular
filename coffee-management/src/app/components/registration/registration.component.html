@@ -1,0 +1,28 @@
+<div class="form-box" style="height: 600px;">
+    <img src="../../../assets/images/coffee-beans-logo.png" alt="" style="margin-top: 20px;">
+    <h4 style="margin: 30px;">Register your account</h4>
+    <form id="form" class="form-input" [formGroup]="registrationForm" (ngSubmit)="registrationFormSubmit()">
+        <div class="input-group">
+            <div class="input-field">
+                <input id="username" type="text" placeholder="Enter your username" formControlName="username">
+                <div class="error"></div>
+            </div>
+            <div class="input-field">
+                <input id="email" type="text" placeholder="Enter your email" formControlName="email">
+                <div class="error"></div>
+            </div>
+            <div class="input-field">
+                <input id="password" type="password" placeholder="Enter your password" formControlName="password">
+                <div class="error"></div>
+            </div>
+            <div class="input-field">
+                <input id="confirm-password" type="password" placeholder="Confirm your password" formControlName="confirm-password">
+                <div class="error"></div>
+            </div>
+        </div>
+        <p>Already have an Account?<a href="#"> Login</a></p>
+        <div class="btn-field">
+            <button type="submit" id="signup-btn">Sign Up</button>
+        </div>
+    </form>
+</div>
