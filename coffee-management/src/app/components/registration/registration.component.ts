@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { passwordMatch } from '../../validators/passwordMatch'
 
 @Component({
   selector: 'app-registration',
@@ -10,39 +11,36 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: any;
 
-  constructor() { }
+  constructor(fb: FormBuilder) { 
+    this.registrationForm = fb.group({
+      username: ['', Validators.required],
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)
+      ]],
+      confirmPassword: ['', [
+        Validators.required,
+      ]]
+    },
+    { 
+      validator: passwordMatch('password', 'confirmPassword')
+    }
+    )
+  }
+
 
   ngOnInit(): void {
 
-    this.registrationForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8)
-      ]),
-      "confirm-password": new FormControl('', Validators.required)
-    })
   }
 
-
-  get Username() {
-    return this.registrationForm.get('username')
-  }
-
-  get Email() {
-    return this.registrationForm.get('email')
-  }
-
-  get Password() {
-    return this.registrationForm.get('password')
-  }
-
-  get ConfirmPassword() {
-    return this.registrationForm.get('confirm-password')
+  
+  // returning all the form control instances
+  get fc(){
+    return this.registrationForm.controls 
   }
 
   registrationFormSubmit(){
