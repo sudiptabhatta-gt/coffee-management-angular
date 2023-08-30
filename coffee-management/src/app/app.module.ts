@@ -8,7 +8,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
