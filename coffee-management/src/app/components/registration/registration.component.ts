@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordMatch } from '../../validators/passwordMatch'
 import { RegistrationService } from '../../service/registration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -12,8 +13,13 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: any;
 
-  constructor(fb: FormBuilder, private registrationService: RegistrationService) { 
-    this.registrationForm = fb.group({
+  constructor(private fb: FormBuilder, private registrationService: RegistrationService, private router: Router) {
+
+  }
+
+
+  ngOnInit(): void {
+    this.registrationForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [
         Validators.required,
@@ -27,30 +33,27 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
       ]]
     },
-    { 
-      validator: passwordMatch('password', 'confirmPassword')
-    }
+      {
+        validator: passwordMatch('password', 'confirmPassword')
+      }
     )
   }
 
 
-  ngOnInit(): void {
-
-  }
-
-  
   // returning all the form control instances
-  get fc(){
-    return this.registrationForm.controls 
+  get fc() {
+    return this.registrationForm.controls
   }
 
-  registrationFormSubmit(){
+
+  registrationFormSubmit() {
     // console.log(this.registrationForm)
     // console.log(this.registrationForm.value)
 
     // call the registrationFormSubmitData method and subscribe to the returned observable to actually send the Http post request to the server
     this.registrationService.registrationFormSubmitData(this.registrationForm.value).subscribe(res => {
-      console.log(res)
+      // console.log(res)
+      this.router.navigate(['/login'])
     })
   }
 }

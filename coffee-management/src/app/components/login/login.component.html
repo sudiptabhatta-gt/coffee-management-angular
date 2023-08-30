@@ -1,0 +1,24 @@
+<div class="form-box">
+    <img src="../../../assets/images/coffee-beans-logo.png" alt="">
+    <h4>Log in to your account</h4>
+    <h6>Welcome back! Please enter your details.</h6>
+    <form class="form-input" id="form" [formGroup]="loginForm" (ngSubmit)="loginFormSubmit()">
+        <div class="input-group">
+            <div class="input-field">
+                <label>Username</label>
+                <input id="username" type="text" placeholder="Enter your username" formControlName="username">
+                <div class="error" *ngIf="(fc.username.touched || fc.username.dirty) && fc.username.errors?.required">Username is required</div>
+            </div>
+            <div class="input-field" style="position: relative;">
+                <label>Password</label>
+                <input id="password" type="password" placeholder="Enter your password" formControlName="password">
+                <i class="fa-solid fa-eye" id="eye"></i>
+                <div class="error" *ngIf="(fc.password.touched || fc.password.dirty) && fc.password.errors?.required">Password is required</div>
+            </div>
+        </div>
+        <p>Need an Account?<a routerLink="/signup"> Signup</a></p>
+        <div class="btn-field">
+            <button type="submit" id="signin-btn">Login</button>
+        </div>
+    </form>
+</div>

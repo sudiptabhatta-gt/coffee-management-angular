@@ -23,7 +23,7 @@
                 <div class="error" *ngIf="(fc.confirmPassword.touched || fc.confirmPassword.dirty) && fc.confirmPassword.errors?.mismatch">Password and Confirm Password doesn't match</div>
             </div>
         </div>
-        <p>Already have an Account?<a href="#"> Login</a></p>
+        <p>Already have an Account?<a routerLink="/login"> Login</a></p>
         <div class="btn-field">
             <button type="submit" id="signup-btn" [disabled]="registrationForm.invalid">Sign Up</button>
         </div>
