@@ -192,3 +192,19 @@ a {
   font-weight: 600;
   line-height: 20px;
 }
+
+
+
+.ng-valid.ng-dirty:not(form) {
+  border: solid 2px lightgreen;
+}
+
+.ng-invalid.ng-dirty:not(form), .ng-invalid.ng-touched:not(form){
+  border: solid 2px lightcoral;
+}
+
+.form-group .error {
+  color: #ff3860;
+  font-size: 12px;
+  height: 13px;
+}

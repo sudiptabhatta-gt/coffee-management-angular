@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class AdduserService {
 
-  url = 'http://192.168.71.100:30800/userlist/'
+  url = 'http://192.168.71.100:30800/register_user/'
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllStudents(): Observable<any>{
-    return this.httpClient.get<any>(this.url)
+  addFormSubmitData(data:any): Observable<any>{
+    return this.httpClient.post<any>(this.url, data)
   }
+  
 }

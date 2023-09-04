@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     // Import the ReactFormsModule to use Reactive Forms in the application.
     ReactiveFormsModule,
     HttpClientModule,
-    NgbCollapseModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
