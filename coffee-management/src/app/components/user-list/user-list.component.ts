@@ -5,6 +5,11 @@ import { UsersService } from '../../service/users.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import { UserClass } from '../../models/user-class.model';
+import { UpdateuserService } from 'src/app/service/updateuser.service';
+
+
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -17,12 +22,15 @@ export class UserListComponent implements OnInit {
   closeResult:string = '';
 
   addUserForm:any; 
+  editForm:any;
+  updateUserForm:any;
 
   constructor(
     private usersService: UsersService,
     private modalService: NgbModal, 
     private fb: FormBuilder,
-    private addUserService: AdduserService) { }
+    private addUserService: AdduserService,
+    private updateUserService: UpdateuserService) {}
 
   ngOnInit(): void {
     this.getStudents()
@@ -30,10 +38,21 @@ export class UserListComponent implements OnInit {
     this.addUserForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      team: [null, Validators.required],
-      is_staff: [false, Validators.required],
-      balance: [0, Validators.required],
+      team: [null],
+      is_staff: [false],
+      balance: [0],
       password: ['1234']
+    })
+
+
+    //  specify the controls that make up the form
+    this.updateUserForm = this.fb.group({
+      id: [''],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      team: [''],
+      is_staff: [''],
+      balance: ['', Validators.required]
     })
   }
 
@@ -48,7 +67,7 @@ export class UserListComponent implements OnInit {
   }
 
 
-  open(content:any) {
+  openAdd(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -81,6 +100,39 @@ export class UserListComponent implements OnInit {
     })
 
     this.modalService.dismissAll(); //dismiss the modal
+  }
+
+
+  get fcUpdate(){
+    return this.updateUserForm.controls
+  }
+
+
+
+  openUpdate(contentUpdate:any, user: UserClass) {
+    this.modalService.open(contentUpdate, {
+      backdrop: 'static',
+      // size: 'lg'
+    });
+
+    this.updateUserForm.patchValue( {
+      id: user.id, 
+      username: user.username,
+      email: user.email,
+      team: user.team,
+      // is_staff: user.is_staff ? 'Admin' : 'User',
+      is_staff: user.is_staff,
+      balance: user.balance
+    });
+  }
+
+  updateFormSubmit(){
+    this.updateUserService.updateFormSubmitData(this.updateUserForm.value).subscribe(res => {
+      this.getStudents();
+    }, error => {
+      console.log(error)
+    })
+    this.modalService.dismissAll();
   }
 
 }
