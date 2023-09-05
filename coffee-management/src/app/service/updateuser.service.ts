@@ -9,7 +9,7 @@ export class UpdateuserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  updateFormSubmitData(data:any){
+  updateFormSubmitData(data:any):Observable<any>{
 
     const url = `http://192.168.71.100:30800/userupdate/${data.id}/`
 

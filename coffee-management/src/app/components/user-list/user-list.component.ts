@@ -7,6 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { UserClass } from '../../models/user-class.model';
 import { UpdateuserService } from 'src/app/service/updateuser.service';
+import { DeleteuserService } from 'src/app/service/deleteuser.service';
 
 
 
@@ -25,12 +26,16 @@ export class UserListComponent implements OnInit {
   editForm:any;
   updateUserForm:any;
 
+  deleteID:any;
+
+
   constructor(
     private usersService: UsersService,
     private modalService: NgbModal, 
     private fb: FormBuilder,
     private addUserService: AdduserService,
-    private updateUserService: UpdateuserService) {}
+    private updateUserService: UpdateuserService,
+    private deleteUserService: DeleteuserService) {}
 
   ngOnInit(): void {
     this.getStudents()
@@ -98,7 +103,7 @@ export class UserListComponent implements OnInit {
     this.addUserService.addFormSubmitData(this.addUserForm.value).subscribe(res => {
       this.getStudents() // reload the table 
     })
-
+    this.addUserForm.reset()
     this.modalService.dismissAll(); //dismiss the modal
   }
 
@@ -129,9 +134,25 @@ export class UserListComponent implements OnInit {
   updateFormSubmit(){
     this.updateUserService.updateFormSubmitData(this.updateUserForm.value).subscribe(res => {
       this.getStudents();
-    }, error => {
-      console.log(error)
     })
+    this.modalService.dismissAll();
+  }
+
+
+  openDelete(contentDelete:any, user: UserClass){
+    this.deleteID = user.id
+    this.modalService.open(contentDelete, {
+      backdrop: 'static',
+      // size: 'lg'
+    });
+  }
+
+
+  onDelete(){
+    this.deleteUserService.deleteRecord(this.deleteID).subscribe(res => {
+      this.getStudents()
+    })
+
     this.modalService.dismissAll();
   }
 
