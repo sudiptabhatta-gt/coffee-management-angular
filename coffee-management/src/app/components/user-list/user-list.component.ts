@@ -67,8 +67,8 @@ export class UserListComponent implements OnInit {
       balance: ['', Validators.required]
     })
 
-    this.username = localStorage.getItem('username') || ''; // Retrieve the username from LocalStorage
-
+    let loginUserData = JSON.parse(localStorage.getItem('loginUserData') as string); // Retrieve the username from LocalStorage
+    this.username = loginUserData.username
   }
 
 
