@@ -1,0 +1,15 @@
+<div class="card" style="width: 18rem; margin-left:20px; margin-top:20px;">
+    <img src="../../../assets/images/default_person.jpg" class="card-img-top" alt="...">
+    <div class="card-body" *ngIf="userData">
+      <h5 class="card-title">{{ userData.username }}</h5>
+        <span class="d-block text-sm text-muted">{{ userData.email }}</span>
+        <div class="div">
+            <p><b>Team Name: </b>{{ userData.team }}</p>
+            <p><b>#Id: </b>{{ userData.id }}</p>
+        </div>
+        <div class="rectangle">
+            <p>Balance:</p>
+            <p>&nbsp;&nbsp;{{ userData.balance }}</p>
+        </div>
+    </div>
+</div>

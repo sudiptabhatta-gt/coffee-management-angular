@@ -105,11 +105,18 @@
                                 </ng-template>
                                 <td>{{ user.balance }}</td>
                                 <td><button class="btn update-btn"
-                                    (click)="openUpdate(contentUpdate, user)">Update</button><button
-                                        class="btn delete-btn" (click)="openDelete(contentDelete, user)">Delete</button></td>
+                                        (click)="openUpdate(contentUpdate, user)">Update</button><button
+                                        class="btn delete-btn" (click)="openDelete(contentDelete, user)">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                    <!-- <ngb-pagination
+		[collectionSize]="collectionSize"
+		[(page)]="page"
+		[pageSize]="pageSize"
+		(pageChange)="getStudents()">
+	                </ngb-pagination> -->
                 </div>
             </div>
         </div>
@@ -121,12 +128,12 @@
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add User</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="resetForm(); modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <form [formGroup]="addUserForm" (ngSubmit)="addFormSubmit()">
+    <form [formGroup]="addUserForm" (ngSubmit)="addFormSubmit()">
+        <div class="modal-body">
             <div class="form-group">
                 <label for="username">Username</label>
                 <div class="input-group">
@@ -145,48 +152,6 @@
                 <div class="error" *ngIf="(fc.email.touched || fc.email.dirty) && fc.email.errors?.email">Invalid Email
                 </div>
             </div>
-            <div class="btn-field" style="float: right; margin-top: 10px;">
-                <button data-dismiss="modal" class="btn btn-dark">Submit</button>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
-    </div>
-</ng-template>
-
-
-
-
-<!--update user modal -->
-<ng-template #contentUpdate let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title2">Update User</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="updateUserForm" (ngSubmit)="updateFormSubmit()">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <div class="input-group">
-                    <input class="form-control" formControlName="username">
-                </div>
-                <div class="error" *ngIf="(fcUpdate.username.touched || fcUpdate.username.dirty) && fcUpdate.username.errors?.required">
-                    Username is required</div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-group">
-                    <input class="form-control" formControlName="email">
-                </div>
-                <div class="error" *ngIf="(fcUpdate.email.touched || fcUpdate.email.dirty) && fcUpdate.email.errors?.required">Email is
-                    required</div>
-                <div class="error" *ngIf="(fcUpdate.email.touched || fcUpdate.email.dirty) && fcUpdate.email.errors?.email">Invalid Email
-                </div>
-            </div>
-
             <div class="form-group">
                 <label for="team">Team Name</label>
                 <select class="form-select" aria-label="teamname select example" formControlName="team">
@@ -210,17 +175,90 @@
                 <div class="input-group">
                     <input class="form-control" formControlName="balance">
                 </div>
-                <div class="error" *ngIf="(fcUpdate.balance.touched || fcUpdate.balance.dirty) && fcUpdate.balance.errors?.required">
+                <div class="error" *ngIf="(fc.balance.touched || fc.balance.dirty) && fc.balance.errors?.required">
                     Balance is required</div>
             </div>
-            <div class="btn-field" style="float: right; margin-top: 10px;">
-                <button data-dismiss="modal" class="btn btn-dark">Submit</button>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-field" style="float: right; margin-top: 3px;">
+                <button data-dismiss="modal" class="btn" style="background: #523838; color: white;">Submit</button>
             </div>
-        </form>
+            <button type="button" class="btn btn-outline-dark" (click)="resetForm(); modal.close('Save click')">Cancel</button>
+        </div>
+    </form>
+</ng-template>
+
+
+
+
+<!--update user modal -->
+<ng-template #contentUpdate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title2">Update User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
-    </div>
+    <form [formGroup]="updateUserForm" (ngSubmit)="updateFormSubmit()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <input class="form-control" formControlName="username">
+                </div>
+                <div class="error"
+                    *ngIf="(fcUpdate.username.touched || fcUpdate.username.dirty) && fcUpdate.username.errors?.required">
+                    Username is required</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <input class="form-control" formControlName="email">
+                </div>
+                <div class="error"
+                    *ngIf="(fcUpdate.email.touched || fcUpdate.email.dirty) && fcUpdate.email.errors?.required">Email is
+                    required</div>
+                <div class="error"
+                    *ngIf="(fcUpdate.email.touched || fcUpdate.email.dirty) && fcUpdate.email.errors?.email">Invalid
+                    Email
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="team">Team Name</label>
+                <select class="form-select" aria-label="teamname select example" formControlName="team">
+                    <option disabled>Choose your team name:</option>
+                    <option value="SED">SED</option>
+                    <option value="SALES">SALES</option>
+                    <option value="HR">HR</option>
+                    <option value="BCL">BCL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-select" aria-label="role select example" formControlName="is_staff">
+                    <option disabled>Choose your role:</option>
+                    <option value=true>Admin</option>
+                    <option value=false>User</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="balance">Balance</label>
+                <div class="input-group">
+                    <input class="form-control" formControlName="balance">
+                </div>
+                <div class="error"
+                    *ngIf="(fcUpdate.balance.touched || fcUpdate.balance.dirty) && fcUpdate.balance.errors?.required">
+                    Balance is required</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-field" style="float: right; margin-top: 3px;">
+                <button data-dismiss="modal" class="btn" style="background: #523838; color: white;">Submit</button>
+            </div>
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+        </div>
+    </form>
 </ng-template>
 
 
@@ -229,18 +267,19 @@
 <!-- delete user modal -->
 <ng-template #contentDelete let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">Confirm Delete</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">Confirm Delete</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-      <h2>Are you sure you want to delete this user.</h2>
-      <div class="border text-center"> 
-        <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">Yes, Delete!</button> 
-      </div>
+        <h5>Are you sure you want to delete this user?</h5>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+        <div class="btn-field" style="float: right; margin-top: 3px;">
+            <button data-dismiss="modal" class="btn" style="background: #523838; color: white;"
+                (click)="onDelete()">Yes, Delete!</button>
+        </div>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
     </div>
 </ng-template>

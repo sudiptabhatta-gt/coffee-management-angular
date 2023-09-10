@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginForm: any;
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
-
   }
 
 
@@ -31,14 +30,17 @@ export class LoginComponent implements OnInit {
   }
 
 
-
   loginFormSubmit() {
     // console.log(this.loginForm.value)
     this.loginService.loginFormSubmitData(this.loginForm.value).subscribe(
       // next callback - when the HTTP request successfully returns a response
       (res) => {
         // console.log(res)
-        this.router.navigate(['/home'])
+        if(res.data.role == 'admin'){
+          this.router.navigate(['/home'])
+        } else {
+          this.router.navigate(['/user', res.data.id])
+        }
       },
       // error callback -  when the HTTP Request end in an error.
       (error) => {
@@ -46,4 +48,5 @@ export class LoginComponent implements OnInit {
       }
     )
   }
+
 }

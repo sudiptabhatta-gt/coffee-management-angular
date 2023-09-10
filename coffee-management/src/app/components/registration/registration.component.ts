@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordMatch } from '../../validators/passwordMatch'
 import { RegistrationService } from '../../service/registration.service';
 import { Router } from '@angular/router';
+
+// import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registration',
@@ -54,6 +56,8 @@ export class RegistrationComponent implements OnInit {
     this.registrationService.registrationFormSubmitData(this.registrationForm.value).subscribe(res => {
       // console.log(res)
       this.router.navigate(['/login'])
+    }, error => {
+      console.log(error.error.username[0])
     })
   }
 }

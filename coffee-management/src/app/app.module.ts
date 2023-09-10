@@ -11,13 +11,15 @@ import { LoginComponent } from './components/login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SingleUserComponent } from './components/single-user/single-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    SingleUserComponent
   ],
   imports: [
     BrowserModule,

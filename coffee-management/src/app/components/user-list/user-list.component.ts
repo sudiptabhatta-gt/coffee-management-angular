@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserClass } from '../../models/user-class.model';
 import { UpdateuserService } from 'src/app/service/updateuser.service';
 import { DeleteuserService } from 'src/app/service/deleteuser.service';
-
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -26,7 +26,13 @@ export class UserListComponent implements OnInit {
   editForm:any;
   updateUserForm:any;
 
+
   deleteID:any;
+
+
+  // collectionSize: number;
+  page = 1; // Current page number
+  pageSize = 10; // Number of items per page
 
 
   constructor(
@@ -43,7 +49,7 @@ export class UserListComponent implements OnInit {
     this.addUserForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      team: [null],
+      team: ['null'],
       is_staff: [false],
       balance: [0],
       password: ['1234']
@@ -59,15 +65,27 @@ export class UserListComponent implements OnInit {
       is_staff: [''],
       balance: ['', Validators.required]
     })
+
   }
 
 
   getStudents(){
+    // this.users = [
+    //   {"id": 1, "name": "user1"},{"id": 2, "name": "user2"},{"id": 3, "name": "user3"}
+    // ]
     this.usersService.getAllStudents().subscribe(allData => {
       // debugger
       this.users = allData.data.data;
+
+
+
+
+      // this.users = this.users.map((user:any, idx:number) => ({id: idx + 1, ...user})).
       // console.log(allData.data.data)
       // console.log(this.users)
+
+    }, error => {
+      console.log(error)
     })
   }
 
@@ -125,7 +143,6 @@ export class UserListComponent implements OnInit {
       username: user.username,
       email: user.email,
       team: user.team,
-      // is_staff: user.is_staff ? 'Admin' : 'User',
       is_staff: user.is_staff,
       balance: user.balance
     });
@@ -154,6 +171,12 @@ export class UserListComponent implements OnInit {
     })
 
     this.modalService.dismissAll();
+  }
+
+
+  // reset the form and clear its values when a user clicks the "Cancel" button or the "Close" (cross) button
+  resetForm(){
+    this.addUserForm.reset()
   }
 
 }

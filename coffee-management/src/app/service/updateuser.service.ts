@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,7 +13,17 @@ export class UpdateuserService {
 
     const url = `http://192.168.71.100:30800/userupdate/${data.id}/`
 
-    return this.httpClient.put<any>(url, data)
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Accept': 'application/json' 
+    });
+      
+    const options = {
+        headers: headers
+      
+    }
+
+    return this.httpClient.put<any>(url, data, options)
     // console.log(data.id)
 
   }
