@@ -19,6 +19,6 @@ export class SingleUserService {
 
 
   getUserbyId(id:any){
-    return this.httpClient.get(`http://192.168.71.100:30800/singleuser/${id}`, this.requestOptions)
+    return this.httpClient.get(`http://127.0.0.1:8000/singleuser/${id}`, this.requestOptions)
   }
 }

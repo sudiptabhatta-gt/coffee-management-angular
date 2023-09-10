@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SingleUserService } from '../../service/single-user.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class SingleUserComponent implements OnInit{
   id:any;
   userData:any;
 
-  constructor(private route: ActivatedRoute, private singleUserService: SingleUserService){
+  constructor(private route: ActivatedRoute, private singleUserService: SingleUserService, private router: Router){
 
   }
 
@@ -34,6 +34,11 @@ export class SingleUserComponent implements OnInit{
       // console.log(res)
       this.userData = res;
     })
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 

@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginService {
 
-  url = 'http://192.168.71.100:30800/login/'
+  url = 'http://127.0.0.1:8000/login/'
 
   headers = new HttpHeaders({
     'content-type': 'application/json',
@@ -16,7 +16,6 @@ export class LoginService {
     
   options = {
       headers: this.headers
-    
   }
 
   constructor(private httpClient: HttpClient) { }

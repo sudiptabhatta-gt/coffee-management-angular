@@ -54,10 +54,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link second-text fw-bold" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link second-text fw-bold" id="navbarDropdown" role="button" (click)="logout()"
                             aria-expanded="false">
                             <i class="fas fa-user me-2"></i>
-                            <span class="fs d-none d-sm-inline" id="adminName"></span>
+                            <span class="fs d-none d-sm-inline" id="adminname">{{ username }}</span>
                             <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 20 20" fill="none">
                                 <path
@@ -111,12 +111,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <ngb-pagination
-		[collectionSize]="collectionSize"
-		[(page)]="page"
-		[pageSize]="pageSize"
-		(pageChange)="getStudents()">
-	                </ngb-pagination> -->
                 </div>
             </div>
         </div>

@@ -37,8 +37,10 @@ export class LoginComponent implements OnInit {
       (res) => {
         // console.log(res)
         if(res.data.role == 'admin'){
+          localStorage.setItem('loginUserData', JSON.stringify(res.data))
           this.router.navigate(['/home'])
         } else {
+          localStorage.setItem('loginUserData', JSON.stringify(res.data))
           this.router.navigate(['/user', res.data.id])
         }
       },

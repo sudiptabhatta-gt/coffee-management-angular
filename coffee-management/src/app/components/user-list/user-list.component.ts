@@ -9,6 +9,8 @@ import { UserClass } from '../../models/user-class.model';
 import { UpdateuserService } from 'src/app/service/updateuser.service';
 import { DeleteuserService } from 'src/app/service/deleteuser.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from 'src/app/service/login.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,10 +31,7 @@ export class UserListComponent implements OnInit {
 
   deleteID:any;
 
-
-  // collectionSize: number;
-  page = 1; // Current page number
-  pageSize = 10; // Number of items per page
+  username:string = '' // variable to store the username
 
 
   constructor(
@@ -41,7 +40,9 @@ export class UserListComponent implements OnInit {
     private fb: FormBuilder,
     private addUserService: AdduserService,
     private updateUserService: UpdateuserService,
-    private deleteUserService: DeleteuserService) {}
+    private deleteUserService: DeleteuserService, 
+    private loginService: LoginService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.getStudents()
@@ -66,21 +67,15 @@ export class UserListComponent implements OnInit {
       balance: ['', Validators.required]
     })
 
+    this.username = localStorage.getItem('username') || ''; // Retrieve the username from LocalStorage
+
   }
 
 
   getStudents(){
-    // this.users = [
-    //   {"id": 1, "name": "user1"},{"id": 2, "name": "user2"},{"id": 3, "name": "user3"}
-    // ]
     this.usersService.getAllStudents().subscribe(allData => {
       // debugger
       this.users = allData.data.data;
-
-
-
-
-      // this.users = this.users.map((user:any, idx:number) => ({id: idx + 1, ...user})).
       // console.log(allData.data.data)
       // console.log(this.users)
 
@@ -177,6 +172,12 @@ export class UserListComponent implements OnInit {
   // reset the form and clear its values when a user clicks the "Cancel" button or the "Close" (cross) button
   resetForm(){
     this.addUserForm.reset()
+  }
+
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 }

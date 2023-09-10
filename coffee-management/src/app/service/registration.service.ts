@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class RegistrationService {
 
-  url = 'http://192.168.71.100:30800/register/' 
+  url = 'http://127.0.0.1:8000/register/' 
 
   headers = new HttpHeaders({
     'content-type': 'application/json',

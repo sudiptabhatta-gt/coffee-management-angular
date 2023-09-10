@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
 
-  url = 'http://192.168.71.100:30800/userlist/'
+  url = 'http://127.0.0.1:8000/userlist/'
 
 
   headers = new HttpHeaders({
