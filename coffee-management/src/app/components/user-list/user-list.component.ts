@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       team: ['null'],
-      is_staff: [false],
+      is_staff: ["false"],
       balance: [0],
       password: ['1234']
     })
@@ -87,7 +87,7 @@ export class UserListComponent implements OnInit {
       // debugger
       // console.log(allData.data.data)
       this.collectionSize = allData.data.data.length
-      this.users_api = allData.data.data
+      this.users_api = allData.data.data.reverse()
       // console.log(this.users)
       // console.log(allData.data.data)
       // console.log(this.users)
