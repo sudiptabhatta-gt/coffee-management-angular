@@ -3,8 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { passwordMatch } from '../../validators/passwordMatch'
 import { RegistrationService } from '../../service/registration.service';
 import { Router } from '@angular/router';
-
-// import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: any;
 
-  constructor(private fb: FormBuilder, private registrationService: RegistrationService, private router: Router) {
+  constructor(private fb: FormBuilder, private registrationService: RegistrationService, private router: Router, private toastr: ToastrService) {
 
   }
 
@@ -57,7 +56,7 @@ export class RegistrationComponent implements OnInit {
       // console.log(res)
       this.router.navigate(['/login'])
     }, error => {
-      console.log(error.error.username[0])
+      this.toastr.error(error.error.username[0])
     })
   }
 }

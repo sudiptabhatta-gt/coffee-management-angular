@@ -9,7 +9,7 @@ export class DeleteuserService {
   constructor(private httpClient: HttpClient) { }
 
   deleteRecord(id:number){
-    const url = `http://192.168.71.100:30800/userdelete/${id}/`
+    const url = `http://127.0.0.1:8000/userdelete/${id}/`
 
     const headers = new HttpHeaders({
       'content-type': 'application/json',

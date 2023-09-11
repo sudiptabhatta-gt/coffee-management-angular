@@ -111,6 +111,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <ngb-pagination
+		[collectionSize]="collectionSize"
+		[(page)]="page"
+		[pageSize]="pageSize"
+		(pageChange)="pageOnChange()"
+	>
+	</ngb-pagination>
                 </div>
             </div>
         </div>

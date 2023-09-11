@@ -12,6 +12,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'src/app/service/login.service';
 import { Router } from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-user-list',
@@ -20,6 +22,7 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
+  users_api:any = [];
   users:any = [];
 
   closeResult:string = '';
@@ -34,6 +37,11 @@ export class UserListComponent implements OnInit {
   username:string = '' // variable to store the username
 
 
+  page = 1;
+	pageSize = 4;
+	collectionSize:any;
+
+
   constructor(
     private usersService: UsersService,
     private modalService: NgbModal, 
@@ -42,7 +50,8 @@ export class UserListComponent implements OnInit {
     private updateUserService: UpdateuserService,
     private deleteUserService: DeleteuserService, 
     private loginService: LoginService,
-    private router: Router) {}
+    private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getStudents()
@@ -69,19 +78,31 @@ export class UserListComponent implements OnInit {
 
     let loginUserData = JSON.parse(localStorage.getItem('loginUserData') as string); // Retrieve the username from LocalStorage
     this.username = loginUserData.username
+
   }
 
 
   getStudents(){
     this.usersService.getAllStudents().subscribe(allData => {
       // debugger
-      this.users = allData.data.data;
+      // console.log(allData.data.data)
+      this.collectionSize = allData.data.data.length
+      this.users_api = allData.data.data
+      // console.log(this.users)
       // console.log(allData.data.data)
       // console.log(this.users)
+      this.pageOnChange()
 
     }, error => {
       console.log(error)
     })
+  }
+
+  pageOnChange(){
+    this.users = this.users_api.slice(
+      (this.page - 1) * this.pageSize,
+      (this.page - 1) * this.pageSize + this.pageSize,
+    );
   }
 
 
@@ -114,7 +135,10 @@ export class UserListComponent implements OnInit {
     // console.log(this.addUserForm.value)
 
     this.addUserService.addFormSubmitData(this.addUserForm.value).subscribe(res => {
+      this.toastr.success('New User Added Successfully.')
       this.getStudents() // reload the table 
+    }, error => {
+      this.toastr.error(error.error.username[0])
     })
     this.addUserForm.reset()
     this.modalService.dismissAll(); //dismiss the modal
@@ -145,6 +169,7 @@ export class UserListComponent implements OnInit {
 
   updateFormSubmit(){
     this.updateUserService.updateFormSubmitData(this.updateUserForm.value).subscribe(res => {
+      this.toastr.success(res.message)
       this.getStudents();
     })
     this.modalService.dismissAll();

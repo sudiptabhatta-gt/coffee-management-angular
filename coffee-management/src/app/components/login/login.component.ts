@@ -2,6 +2,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/login.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: any;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private toastr: ToastrService) {
   }
 
 
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
       },
       // error callback -  when the HTTP Request end in an error.
       (error) => {
-        console.log(error)
+        this.toastr.error(error.error.error)
       }
     )
   }
